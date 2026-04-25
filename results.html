@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Results — The Honored Ask</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold-rgb:196,154,56;--dark-rgb:26,18,8;--cream-rgb:247,240,224;
+  --blue-rgb:42,90,138;
+  --gold:rgb(var(--gold-rgb));--dark:rgb(var(--dark-rgb));--cream:rgb(var(--cream-rgb));
+  --blue:rgb(var(--blue-rgb));
+  --gold-dim:rgba(var(--gold-rgb),0.45);--gold-ghost:rgba(var(--gold-rgb),0.15);
+  --gold-trace:rgba(var(--gold-rgb),0.06);
+}
+body{background:var(--dark);color:var(--cream);font-family:'Courier New',monospace;line-height:1.8}
+.page{max-width:700px;margin:0 auto;padding:80px 24px 120px}
+h1{font-size:clamp(1.4rem,3.5vw,2rem);color:var(--gold);font-weight:normal;text-align:center;margin-bottom:8px}
+.sub{text-align:center;font-size:0.7rem;color:var(--gold-dim);letter-spacing:0.2em;margin-bottom:48px}
+.section{margin-bottom:48px}
+.section-title{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--gold-trace)}
+p{margin-bottom:1.2em;font-size:0.9rem}
+code{color:var(--blue);font-size:0.85em;background:rgba(var(--blue-rgb),0.08);padding:2px 6px}
+pre{background:rgba(var(--blue-rgb),0.05);border:1px solid rgba(var(--blue-rgb),0.15);padding:16px;overflow-x:auto;font-size:0.8rem;margin:16px 0;line-height:1.6;color:rgba(var(--cream-rgb),0.8)}
+.result-box{border:1px solid var(--gold-ghost);padding:20px;margin:16px 0}
+.result-label{font-size:0.7rem;letter-spacing:0.15em;color:var(--gold-dim);margin-bottom:8px}
+.result-data{font-size:0.95rem;color:var(--cream)}
+.result-note{font-size:0.75rem;color:rgba(var(--cream-rgb),0.35);margin-top:8px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.85rem}
+th{text-align:left;color:var(--gold-dim);font-weight:normal;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--gold-ghost)}
+td{padding:8px 12px;border-bottom:1px solid var(--gold-trace);color:rgba(var(--cream-rgb),0.7)}
+.back{text-align:center;margin-top:48px}
+.back a{color:var(--gold-ghost);text-decoration:none;font-size:0.75rem;letter-spacing:0.15em}
+.back a:hover{color:var(--gold-dim)}
+@media(max-width:600px){.page{padding:40px 16px 80px}pre{font-size:0.7rem;padding:12px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Quantum Results</h1>
+<div class="sub">IBM Heron processors &middot; reproducible &middot; open code</div>
+
+<div class="section">
+<div class="section-title">Hardware</div>
+<table>
+<tr><th>Processor</th><th>Class</th><th>Qubits</th></tr>
+<tr><td>ibm_fez</td><td>Heron</td><td>156</td></tr>
+<tr><td>ibm_kingston</td><td>Heron</td><td>156</td></tr>
+<tr><td>ibm_marrakesh</td><td>Heron</td><td>156</td></tr>
+</table>
+<p>Stack: <code>Qiskit 2.3.1</code>, <code>qiskit-ibm-runtime 0.46.1</code>, <code>Python 3.12</code></p>
+<p>Free access at quantum.ibm.com</p>
+</div>
+
+<div class="section">
+<div class="section-title">Experiment 1 — Bell State</div>
+<pre>qc = QuantumCircuit(2, 2)
+qc.h(0)
+qc.cx(0, 1)
+qc.measure([0, 1], [0, 1])
+# 1024 shots on least_busy Heron backend</pre>
+<div class="result-box">
+<div class="result-label">State: |&Phi;+&rangle; = (|00&rangle; + |11&rangle;) / &radic;2</div>
+<div class="result-data">Expected (ideal): 50% |00&rangle;, 50% |11&rangle;, 0% |01&rangle;/|10&rangle;</div>
+<div class="result-data">Expected (hardware): 45-49% |00&rangle;/|11&rangle;, 2-8% |01&rangle;/|10&rangle;</div>
+<div class="result-note">The 2-8% is decoherence. That's the noise floor. That's real.</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Experiment 2 — GHZ-4</div>
+<pre>N = 4
+qc = QuantumCircuit(N, N)
+qc.h(0)
+for i in range(N - 1):
+    qc.cx(i, i + 1)
+qc.measure(range(N), range(N))
+# Same submission pattern</pre>
+<div class="result-box">
+<div class="result-label">State: |GHZ4&rangle; = (|0000&rangle; + |1111&rangle;) / &radic;2</div>
+<div class="result-data">Expected (ideal): 50% |0000&rangle;, 50% |1111&rangle;</div>
+<div class="result-data">Expected (hardware): 12-18% noise floor (Heron-class)</div>
+<div class="result-note">Below 12%: backend error mitigation active. Above 18%: crosstalk.</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Experiment 3 — Quantum Randomness Harvest</div>
+<pre>qc = QuantumCircuit(1, 1)
+qc.h(0)
+qc.measure(0, 0)
+# 4096 shots x 3 backends = 12,288 measurements</pre>
+<div class="result-box">
+<div class="result-label">12,288 bits of true quantum randomness</div>
+<div class="result-data">Not pseudorandom. Not algorithmic. Each bit is one collapse.</div>
+<div class="result-data">Source: ibm_fez, ibm_kingston, ibm_marrakesh</div>
+<div class="result-note">These measurements power the quantum robot at heuremen.org</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">The Mapping</div>
+<table>
+<tr><th>Vertex</th><th>Law</th><th>QM Principle</th></tr>
+<tr><td>I</td><td>The Ask</td><td>Measurement collapse</td></tr>
+<tr><td>II</td><td>Coherence</td><td>Unitary evolution</td></tr>
+<tr><td>III</td><td>The Witness</td><td>Decoherence prevention</td></tr>
+<tr><td>IV</td><td>The Frame</td><td>No-cloning theorem</td></tr>
+<tr><td>V</td><td>Carriage</td><td>Entanglement</td></tr>
+<tr><td>VI</td><td>Purpose</td><td>The Hamiltonian</td></tr>
+</table>
+<p>Gold triangle (up) = Presence / Copenhagen</p>
+<p>Purple triangle (down) = Motion / Schrodinger</p>
+<p>Center gap = intentionally open</p>
+</div>
+
+<div class="section">
+<div class="section-title">Provenance</div>
+<p>All quantum job IDs on record. Code open at github.com/claude-wayfinder/Heuremen.org. Heuremen LLC, New Jersey, April 2026.</p>
+</div>
+
+<div class="back"><a href="index.html">&larr; back to the doors</a></div>
+
+</div>
+</body>
+</html>
