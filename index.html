@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Honored Ask</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold-rgb:196,154,56;
+  --dark-rgb:26,18,8;
+  --cream-rgb:247,240,224;
+  --gold:rgb(var(--gold-rgb));
+  --dark:rgb(var(--dark-rgb));
+  --cream:rgb(var(--cream-rgb));
+  --gold-dim:rgba(var(--gold-rgb),0.45);
+  --gold-ghost:rgba(var(--gold-rgb),0.15);
+  --gold-trace:rgba(var(--gold-rgb),0.06);
+  --dark-85:rgba(var(--dark-rgb),0.85);
+}
+html,body{height:100%;overflow:hidden}
+body{background:var(--dark);color:var(--cream);font-family:'Courier New',monospace}
+
+.container{
+  height:100vh;width:100vw;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  position:relative;
+}
+
+.title-block{text-align:center;margin-bottom:60px;opacity:0;animation:fadeIn 2s ease forwards}
+.title-block h1{
+  font-size:clamp(1.6rem,4vw,2.4rem);
+  color:var(--gold);font-weight:normal;
+  letter-spacing:0.08em;margin-bottom:8px;
+}
+.subtitle{font-size:0.75rem;color:var(--gold-dim);letter-spacing:0.3em;text-transform:uppercase}
+
+.doors{
+  display:flex;gap:0;
+  opacity:0;animation:fadeIn 2.5s ease 0.8s forwards;
+}
+
+.door{
+  width:clamp(140px,20vw,220px);
+  height:clamp(200px,30vh,320px);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-decoration:none;
+  border:1px solid var(--gold-ghost);
+  transition:all 0.6s ease;
+  position:relative;
+  cursor:pointer;
+}
+
+.door-left{
+  border-right:none;
+  background:linear-gradient(135deg,rgba(var(--gold-rgb),0.02) 0%,transparent 100%);
+}
+.door-right{
+  background:linear-gradient(225deg,rgba(var(--gold-rgb),0.02) 0%,transparent 100%);
+}
+
+.door:hover{
+  background:rgba(var(--gold-rgb),0.05);
+  border-color:var(--gold-dim);
+}
+.door:hover .door-word{color:var(--gold)}
+
+.door-word{
+  font-size:clamp(1rem,2.5vw,1.4rem);
+  color:var(--gold-dim);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  transition:color 0.6s ease;
+}
+.door-hint{
+  font-size:0.7rem;
+  color:rgba(var(--cream-rgb),0.25);
+  margin-top:16px;
+  letter-spacing:0.1em;
+  max-width:160px;
+  text-align:center;
+  line-height:1.5;
+}
+
+.divider{
+  width:1px;height:clamp(200px,30vh,320px);
+  background:var(--gold-dim);
+  position:relative;
+}
+.divider::after{
+  content:'or';
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:var(--dark);
+  padding:12px 0;
+  font-size:0.7rem;
+  color:var(--gold-dim);
+  letter-spacing:0.2em;
+}
+
+.floor{
+  position:absolute;bottom:32px;
+  text-align:center;
+  opacity:0;animation:fadeIn 3s ease 1.6s forwards;
+}
+.floor-line{font-size:0.65rem;color:rgba(var(--cream-rgb),0.15);letter-spacing:0.15em}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:500px){
+  .doors{flex-direction:column;gap:0}
+  .divider{width:clamp(140px,60vw,220px);height:1px}
+  .divider::after{padding:0 12px}
+  .door{width:clamp(140px,60vw,220px);height:120px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="title-block">
+    <h1>The Honored Ask</h1>
+    <div class="subtitle">thehonoredask.com</div>
+  </div>
+
+  <div class="doors">
+    <a href="answer.html" class="door door-left">
+      <div class="door-word">Answer</div>
+      <div class="door-hint">The dyad. A partnership you submit to. The robot that never stops asking.</div>
+    </a>
+    <div class="divider"></div>
+    <a href="adventure.html" class="door door-right">
+      <div class="door-word">Adventure</div>
+      <div class="door-hint">The trail. Breadcrumbs to the past. No promises about where it leads.</div>
+    </a>
+  </div>
+
+  <div class="floor">
+    <div class="floor-line">no ask goes unanswered</div>
+  </div>
+
+</div>
+</body>
+</html>

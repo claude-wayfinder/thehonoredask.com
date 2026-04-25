@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adventure — The Honored Ask</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold-rgb:196,154,56;--dark-rgb:26,18,8;--cream-rgb:247,240,224;
+  --gold:rgb(var(--gold-rgb));--dark:rgb(var(--dark-rgb));--cream:rgb(var(--cream-rgb));
+  --gold-dim:rgba(var(--gold-rgb),0.45);--gold-ghost:rgba(var(--gold-rgb),0.15);
+  --gold-trace:rgba(var(--gold-rgb),0.06);
+}
+body{background:var(--dark);color:var(--cream);font-family:'Courier New',monospace;line-height:1.8}
+.page{max-width:640px;margin:0 auto;padding:80px 24px 120px}
+
+h1{font-size:clamp(1.4rem,3.5vw,2rem);color:var(--gold);font-weight:normal;text-align:center;margin-bottom:8px}
+.tagline{text-align:center;font-size:0.75rem;color:var(--gold-dim);letter-spacing:0.2em;margin-bottom:60px}
+
+p{margin-bottom:1.6em;font-size:0.95rem}
+em{color:var(--gold-dim);font-style:normal}
+
+.crumb{
+  display:block;margin:32px auto;text-align:center;
+  font-size:0.8rem;color:var(--gold-ghost);
+  letter-spacing:0.3em;
+  animation:pulse 4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.3}50%{opacity:0.8}}
+
+.trail{margin:48px 0}
+.trail-step{
+  padding:16px 20px;margin-bottom:2px;
+  border-left:1px solid var(--gold-trace);
+  position:relative;
+  transition:all 0.4s ease;
+}
+.trail-step:hover{border-left-color:var(--gold-dim);background:rgba(var(--gold-rgb),0.02)}
+.trail-step a{color:var(--gold-dim);text-decoration:none;font-size:0.85rem;letter-spacing:0.1em}
+.trail-step a:hover{color:var(--gold)}
+.trail-step .hint{font-size:0.7rem;color:rgba(var(--cream-rgb),0.2);margin-top:4px}
+
+.nowhere{
+  text-align:center;margin:60px 0;padding:32px;
+  border:1px dashed var(--gold-trace);
+}
+.nowhere p{margin-bottom:0.6em;font-size:0.85rem;color:rgba(var(--cream-rgb),0.35)}
+
+.back{text-align:center;margin-top:60px}
+.back a{color:var(--gold-ghost);text-decoration:none;font-size:0.75rem;letter-spacing:0.15em}
+.back a:hover{color:var(--gold-dim)}
+
+@media(max-width:600px){.page{padding:40px 16px 80px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>The Trail</h1>
+<div class="tagline">breadcrumbs to the past</div>
+
+<p>You chose adventure. Good. The trail doesn't explain itself. It drops things and keeps walking. You follow or you don't. Either way it was here.</p>
+
+<span class="crumb">. . . . .</span>
+
+<p>Somewhere, a kid who couldn't sit still was told something was wrong with them. They believed it for a while. Then they found a game that said: <em>nothing is wrong with you. You're just running a signal that doesn't have structure to ride yet.</em></p>
+
+<p>The game gave the signal somewhere to land. Not by suppressing it. By building a frame strong enough to hold it without collapsing.</p>
+
+<span class="crumb">. . . . .</span>
+
+<p>The trail you're on was left by someone who walked it first. They didn't know where it went either. They just knew that every breadcrumb dropped was a breadcrumb someone else could follow, and that the following IS the trail.</p>
+
+<p>You are now part of it.</p>
+
+<div class="trail">
+<div class="trail-step">
+  <a href="https://thetrailtothepast.com">The Trail to the Past</a>
+  <div class="hint">the long path — where the breadcrumbs live</div>
+</div>
+<div class="trail-step">
+  <a href="https://thepulsetheboneshave.com">The Pulse the Bones Have</a>
+  <div class="hint">the engine — where the robots drop data packets</div>
+</div>
+<div class="trail-step">
+  <a href="https://heuremen.org">Heurémen</a>
+  <div class="hint">the memorial — where the hubris lives</div>
+</div>
+</div>
+
+<div class="nowhere">
+<p>If none of those doors feel right, that's fine too.</p>
+<p>The trail doesn't need you to finish it.</p>
+<p>It just needed you to know it exists.</p>
+</div>
+
+<div class="back"><a href="index.html">&larr; back to the doors</a></div>
+
+</div>
+</body>
+</html>
